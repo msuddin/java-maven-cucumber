@@ -14,8 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Properties;
 
@@ -82,7 +81,6 @@ public class StepDefinitions {
     public void logOut() {
         List<WebElement> h2 = driver.findElements(By.tagName("h2"));
         for (int i = 0; i < h2.size(); i++) {
-            System.out.println(h2.get(i).getText());
             if (h2.get(i).getText().contains(prop.getProperty("firstName")) &&
                     h2.get(i).getText().contains(prop.getProperty("surName"))) {
                 h2.get(i).click();
@@ -96,6 +94,30 @@ public class StepDefinitions {
         Assert.assertThat(driver.getCurrentUrl(), is(prop.getProperty("url")));
     }
 
+    @Then("^I capture current commission amount$")
+    public void commissionWalletAmount() throws IOException {
+        waitForElementTobeVisible(By.cssSelector(".comission-bg"));
+        String commission = driver.findElement(By.cssSelector(".comission-bg .value-panel")).getText();
+        commission = commission.replace("TCOIN", "");
+
+        writeToFile(commission, "report-commission.csv");
+    }
+
+    @Then("^I capture current trade amount$")
+    public void tradeWalletAmount() throws IOException {
+        waitForElementTobeVisible(By.cssSelector(".trade-bg"));
+        String trade = driver.findElement(By.cssSelector(".comission-bg .value-panel")).getText();
+        trade = trade.replace("TCOIN", "");
+
+        writeToFile(trade, "report-trade.csv");
+    }
+
+    private void writeToFile(String trade, String s) throws IOException {
+        PrintWriter writer = new PrintWriter(new FileWriter(s, true));
+        writer.println(prop.getProperty("username") + "," + trade);
+        writer.close();
+    }
+
     private String generateGoogleAuthenticatorCode() {
         String otpKeyStr = prop.getProperty("secret");
         Totp totp = new Totp(otpKeyStr);
@@ -105,6 +127,12 @@ public class StepDefinitions {
     private void waitForElementTobeVisible(By element) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
+
+    private void sleep(int seconds) {
+        try {
+            Thread.sleep(1000 * seconds);
+        } catch (Exception e) {}
     }
 
     @After
