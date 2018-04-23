@@ -1,6 +1,5 @@
 package definition;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,9 +11,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Properties;
 
@@ -69,16 +72,28 @@ public class StepDefinitions {
 
     @Then("^I set trading to \"([^\"]*)\"$")
     public void setTrading(String tradeSetting) {
-        throw new PendingException();
+        waitForElementTobeVisible(By.id("trade-risk"));
+        driver.findElement(By.id("trade-risk")).click();
+
+        Select dropdown = new Select(driver.findElement(By.id("trade-risk")));
+        dropdown.selectByVisibleText(tradeSetting);
     }
 
     @Then("^wait for trading confirmation$")
     public void tradingConfirmation() {
-        throw new PendingException();
+        waitForElementTobeVisible(By.className("jquery-notific8-message"));
+    }
+
+    @Then("^I check that trading is set to \"([^\"]*)\"$")
+    public void checkWhatTradingIsSetTo(String tradingState) {
+        waitForElementTobeVisible(By.id("trade-risk"));
+        Select dropdown = new Select(driver.findElement(By.id("trade-risk")));
+        Assert.assertThat(dropdown.getFirstSelectedOption().getText(), is(tradingState));
     }
 
     @Then("^I log out$")
     public void logOut() {
+        sleep(5);
         List<WebElement> h2 = driver.findElements(By.tagName("h2"));
         for (int i = 0; i < h2.size(); i++) {
             if (h2.get(i).getText().contains(prop.getProperty("firstName")) &&
