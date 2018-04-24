@@ -20,5 +20,5 @@ Feature: To turn on trading
     And I log out
 
     Examples:
-      |username|
-      |template|
+    |username|
+    |template|

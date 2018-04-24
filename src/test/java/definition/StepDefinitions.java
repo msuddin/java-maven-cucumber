@@ -109,27 +109,23 @@ public class StepDefinitions {
         Assert.assertThat(driver.getCurrentUrl(), is(prop.getProperty("url")));
     }
 
-    @Then("^I capture current commission amount$")
-    public void commissionWalletAmount() throws IOException {
+    @Then("^I capture current commission and trade amount$")
+    public void commissionAndTradeWalletAmount() throws IOException {
         waitForElementTobeVisible(By.cssSelector(".comission-bg"));
         String commission = driver.findElement(By.cssSelector(".comission-bg .value-panel")).getText();
-        commission = commission.replace("TCOIN", "");
 
-        writeToFile(commission, "report-commission.csv");
-    }
-
-    @Then("^I capture current trade amount$")
-    public void tradeWalletAmount() throws IOException {
         waitForElementTobeVisible(By.cssSelector(".trade-bg"));
-        String trade = driver.findElement(By.cssSelector(".comission-bg .value-panel")).getText();
+        String trade = driver.findElement(By.cssSelector(".trade-bg .value-panel")).getText();
+
+        commission = commission.replace("TCOIN", "");
         trade = trade.replace("TCOIN", "");
 
-        writeToFile(trade, "report-trade.csv");
+        writeToFile(trade, commission);
     }
 
-    private void writeToFile(String trade, String s) throws IOException {
-        PrintWriter writer = new PrintWriter(new FileWriter(s, true));
-        writer.println(prop.getProperty("username") + "," + trade);
+    private void writeToFile(String trade, String commission) throws IOException {
+        PrintWriter writer = new PrintWriter(new FileWriter("report.csv", true));
+        writer.println(prop.getProperty("username") + "," + commission + "," + trade);
         writer.close();
     }
 
