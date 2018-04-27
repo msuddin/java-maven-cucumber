@@ -18,6 +18,7 @@ Feature: To turn on trading
     And I wait for google authenticator to be completed
     And I check that trading is set to "High risk"
     And I log out
+    And close the browser
 
     Examples:
     |username|
