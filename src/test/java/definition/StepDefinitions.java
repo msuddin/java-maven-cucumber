@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.is;
 
 public class StepDefinitions {
 
+    private static boolean printedColumns = false;
     private WebDriver driver = new ChromeDriver();
     private Properties prop = new Properties();
 
@@ -117,15 +118,23 @@ public class StepDefinitions {
         waitForElementTobeVisible(By.cssSelector(".trade-bg"));
         String trade = driver.findElement(By.cssSelector(".trade-bg .value-panel")).getText();
 
+        waitForElementTobeVisible(By.cssSelector(".box-mypackage"));
+        String myPackage = driver.findElement(By.cssSelector(".box-mypackage .value-panel")).getText();
+
+        myPackage = myPackage.replace("TCOIN", "");
         commission = commission.replace("TCOIN", "");
         trade = trade.replace("TCOIN", "");
 
-        writeToFile(trade, commission);
+        writeToFile(myPackage, trade, commission);
     }
 
-    private void writeToFile(String trade, String commission) throws IOException {
+    private void writeToFile(String myPackage, String trade, String commission) throws IOException {
         PrintWriter writer = new PrintWriter(new FileWriter("report.csv", true));
-        writer.println(prop.getProperty("username") + "," + commission + "," + trade);
+        if (!printedColumns) {
+            writer.println("USERNAME" + "," + "MY PACKAGE" + "," + "COMMISSION" + "," + "TRADE");
+            printedColumns = true;
+        }
+        writer.println(prop.getProperty("username") + "," + myPackage + "," + commission + "," + trade);
         writer.close();
     }
 
