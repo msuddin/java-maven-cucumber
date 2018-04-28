@@ -14,7 +14,7 @@ import java.util.Properties;
 public class DefinitionUtils {
 
     protected static WebDriver driver;
-    protected Properties prop = new Properties();
+    protected static Properties prop = new Properties();
     protected static boolean printedColumns = false;
 
     protected void writeToFile(String myPackage, String trade, String commission) throws IOException {

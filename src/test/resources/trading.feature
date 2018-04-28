@@ -11,6 +11,7 @@ Feature: To turn on trading
     And I set trading to "High risk"
     And wait for trading confirmation
     And I log out
+    And close the browser
     Then I navigate to site with user <username>
     And I enter username
     And I enter password
