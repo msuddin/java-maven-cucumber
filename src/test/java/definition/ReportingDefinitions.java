@@ -9,10 +9,15 @@ import java.io.IOException;
 
 public class ReportingDefinitions extends DefinitionUtils {
 
+    private static boolean reportDeleteDone = false;
+
     @Given("^I have deleted any previous reports$")
     public void deletePreviousReports() {
-        File reportFile = new File(reportFileName);
-        reportFile.delete();
+        if (!reportDeleteDone) {
+            File reportFile = new File(reportFileName);
+            reportFile.delete();
+            reportDeleteDone = true;
+        }
     }
 
     @Then("^I capture current commission and trade amount$")
