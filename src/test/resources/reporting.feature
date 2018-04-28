@@ -1,6 +1,7 @@
 Feature: To capture different types of data
 
   Scenario Outline: Report on commission wallet
+    Given I have deleted any previous reports
     Given I navigate to site with user <username>
     When I enter username
     And I enter password

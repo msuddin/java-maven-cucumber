@@ -16,9 +16,10 @@ public class DefinitionUtils {
     protected static WebDriver driver;
     protected static Properties prop = new Properties();
     protected static boolean printedColumns = false;
+    protected static final String reportFileName = "report.csv";
 
     protected void writeToFile(String myPackage, String trade, String commission) throws IOException {
-        PrintWriter writer = new PrintWriter(new FileWriter("report.csv", true));
+        PrintWriter writer = new PrintWriter(new FileWriter(reportFileName, true));
         if (!printedColumns) {
             writer.println("USERNAME" + "," + "MY PACKAGE" + "," + "COMMISSION" + "," + "TRADE");
             printedColumns = true;
