@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 public class DefinitionUtils {
@@ -16,7 +18,7 @@ public class DefinitionUtils {
     protected static WebDriver driver;
     protected static Properties prop = new Properties();
     protected static boolean printedColumns = false;
-    protected static final String reportFileName = "report.csv";
+    protected static final String reportFileName = "report " + getDate() +".csv";
 
     protected void writeToFile(String myPackage, String trade, String commission) throws IOException {
         PrintWriter writer = new PrintWriter(new FileWriter(reportFileName, true));
@@ -43,5 +45,9 @@ public class DefinitionUtils {
         try {
             Thread.sleep(1000 * seconds);
         } catch (Exception e) {}
+    }
+
+    private static String getDate() {
+        return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
 }
