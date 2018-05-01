@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportingDefinitions extends DefinitionUtils {
@@ -35,12 +36,28 @@ public class ReportingDefinitions extends DefinitionUtils {
 
         waitForElementTobeVisible(By.className("info-monitoring"));
         List<WebElement> tradingDays = driver.findElements(By.className("info-monitoring"));
+        List<String> tradingDaysText = new ArrayList<String>();
+        for (int i = 0; i < tradingDays.size(); i++) {
+            tradingDaysText.add(tradingDays.get(i).getText());
+        }
 
         myPackage = myPackage.replace("TCOIN", "");
         commission = commission.replace("TCOIN", "");
         trade = trade.replace("TCOIN", "");
 
-        writeToFile(myPackage, trade, commission, tradingDays);
+        waitForElementTobeVisible(By.className("active-nav"));
+        driver.findElement(By.className("active-nav")).click();
+
+        waitForElementTobeVisible(By.linkText("My Network"));
+        driver.findElement(By.linkText("My Network")).click();
+
+        waitForElementTobeVisible(By.linkText("Binary Network"));
+        driver.findElement(By.linkText("Binary Network")).click();
+
+        waitForElementTobeVisible(By.id("formSendFindMember"));
+        List<WebElement> binaryPoints = driver.findElements(By.cssSelector(".table-bordered tbody tr td"));
+
+        writeToFile(myPackage, trade, commission, binaryPoints, tradingDaysText);
     }
 
 }

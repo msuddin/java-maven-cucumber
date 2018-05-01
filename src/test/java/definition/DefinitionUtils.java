@@ -25,10 +25,13 @@ public class DefinitionUtils {
     protected void writeToFile(String myPackage,
                                String trade,
                                String commission,
-                               List<WebElement> tradingDays) throws IOException {
+                               List<WebElement> binaryPoints,
+                               List<String> tradingDays) throws IOException {
         PrintWriter writer = new PrintWriter(new FileWriter(reportFileName, true));
         if (!printedColumns) {
-            writer.println("USERNAME,MY PACKAGE,COMMISSION,TRADE,CYCLE 01,CYCLE 02,CYCLE 03,REMAINING TRADING DAYS");
+            writer.println(
+                    "USERNAME,MY PACKAGE,COMMISSION,TRADE,LEFT TEAM,RIGHT TEAM,CYCLE 01,CYCLE 02,CYCLE 03,REMAINING DAYS"
+            );
             printedColumns = true;
         }
         writer.println(
@@ -36,10 +39,12 @@ public class DefinitionUtils {
                         + myPackage + ","
                         + commission + ","
                         + trade + ","
-                        + tradingDays.get(0).getText().replace("/", "--") + ","
-                        + tradingDays.get(1).getText().replace("/", "--") + ","
-                        + tradingDays.get(2).getText().replace("/", "--") + ","
-                        + tradingDays.get(3).getText().replace("/", "--")
+                        + binaryPoints.get(0).getText().replace("\n", "") + ","
+                        + binaryPoints.get(3).getText().replace("\n", "") + ","
+                        + tradingDays.get(0).replace("/", "--") + ","
+                        + tradingDays.get(1).replace("/", "--") + ","
+                        + tradingDays.get(2).replace("/", "--") + ","
+                        + tradingDays.get(3).replace("/", "--")
         );
         writer.close();
     }
