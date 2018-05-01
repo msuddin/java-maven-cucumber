@@ -3,9 +3,11 @@ package definition;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class ReportingDefinitions extends DefinitionUtils {
 
@@ -20,8 +22,8 @@ public class ReportingDefinitions extends DefinitionUtils {
         }
     }
 
-    @Then("^I capture current commission and trade amount$")
-    public void commissionAndTradeWalletAmount() throws IOException {
+    @Then("^I capture dash board details$")
+    public void captureDashBoard() throws IOException {
         waitForElementTobeVisible(By.cssSelector(".comission-bg"));
         String commission = driver.findElement(By.cssSelector(".comission-bg .value-panel")).getText();
 
@@ -31,11 +33,14 @@ public class ReportingDefinitions extends DefinitionUtils {
         waitForElementTobeVisible(By.cssSelector(".box-mypackage"));
         String myPackage = driver.findElement(By.cssSelector(".box-mypackage .value-panel")).getText();
 
+        waitForElementTobeVisible(By.className("info-monitoring"));
+        List<WebElement> tradingDays = driver.findElements(By.className("info-monitoring"));
+
         myPackage = myPackage.replace("TCOIN", "");
         commission = commission.replace("TCOIN", "");
         trade = trade.replace("TCOIN", "");
 
-        writeToFile(myPackage, trade, commission);
+        writeToFile(myPackage, trade, commission, tradingDays);
     }
 
 }
