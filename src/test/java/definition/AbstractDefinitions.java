@@ -26,7 +26,7 @@ public class AbstractDefinitions extends DefinitionUtils {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 
         driver.manage().window().maximize();
-        driver.navigate().to(prop.getProperty("url"));
+        driver.navigate().to("https://office.tradecoinclub.com/login");
     }
 
     @When("^I enter username$")
@@ -75,7 +75,7 @@ public class AbstractDefinitions extends DefinitionUtils {
         waitForElementTobeVisible(By.linkText("Logout"));
         driver.findElement(By.linkText("Logout")).click();
 
-        Assert.assertThat(driver.getCurrentUrl(), is(prop.getProperty("url")));
+        Assert.assertThat(driver.getCurrentUrl(), is("https://office.tradecoinclub.com/login"));
     }
 
     @Then("^close the browser$")
