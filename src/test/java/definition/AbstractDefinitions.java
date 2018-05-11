@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,13 +17,20 @@ import static org.hamcrest.Matchers.is;
 
 public class AbstractDefinitions extends DefinitionUtils {
 
+    private ChromeOptions options = new ChromeOptions();
+
+    @Given("^I run in headless mode$")
+    public void headlessMode() {
+        options.addArguments("--headless");
+    }
+
     @Given("^I navigate to site with user ([^\"]*)$")
     public void navigateTo(String userFile) throws IOException {
         InputStream input = getClass().getClassLoader()
                 .getResourceAsStream(userFile + ".properties");
         prop.load(input);
 
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 
         driver.manage().window().maximize();
