@@ -23,7 +23,7 @@ public class ReportingDefinitions extends DefinitionUtils {
         }
     }
 
-    @Then("^I capture dash board details$")
+    @Then("^I capture details$")
     public void captureDashBoard() throws IOException {
         waitForElementTobeVisible(By.cssSelector(".comission-bg"));
         String commission = driver.findElement(By.cssSelector(".comission-bg .value-panel")).getText();
@@ -45,19 +45,34 @@ public class ReportingDefinitions extends DefinitionUtils {
         commission = commission.replace("TCOIN", "");
         trade = trade.replace("TCOIN", "");
 
-        waitForElementTobeVisible(By.className("active-nav"));
-        driver.findElement(By.className("active-nav")).click();
-
-        waitForElementTobeVisible(By.linkText("My Network"));
-        driver.findElement(By.linkText("My Network")).click();
-
-        waitForElementTobeVisible(By.linkText("Binary Network"));
-        driver.findElement(By.linkText("Binary Network")).click();
+        clickOnSideMenu(By.className("active-nav"));
+        clickOnSideMenu(By.linkText("My Network"));
+        clickOnSideMenu(By.linkText("Binary Network"));
 
         waitForElementTobeVisible(By.id("formSendFindMember"));
+        List<String> binaryPointsTextValue = new ArrayList<String>();
         List<WebElement> binaryPoints = driver.findElements(By.cssSelector(".table-bordered tbody tr td"));
 
-        writeToFile(myPackage, trade, commission, binaryPoints, tradingDaysText);
+        for (int i = 0; i < binaryPoints.size(); i++) {
+            binaryPointsTextValue.add(binaryPoints.get(i).getText());
+        }
+
+        clickOnSideMenu(By.className("active-nav"));
+        clickOnSideMenu(By.linkText("Financial"));
+        clickOnSideMenu(By.linkText("Financial Extract"));
+
+        waitForElementTobeVisible(By.className("table-responsive"));
+        List<WebElement> tables = driver.findElements(By.className("table-responsive"));
+        List<WebElement> earningSections = tables.get(1).findElements(By.tagName("td"));
+        String totalTradeEarning = earningSections.get(earningSections.size() - 2).getText();
+
+        writeToFile(myPackage, trade, commission, binaryPointsTextValue, tradingDaysText, totalTradeEarning);
     }
+
+    private void clickOnSideMenu(By by) {
+        waitForElementTobeVisible(by);
+        driver.findElement(by).click();
+    }
+
 
 }

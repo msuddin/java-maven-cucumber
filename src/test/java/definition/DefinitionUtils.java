@@ -3,7 +3,6 @@ package definition;
 import org.jboss.aerogear.security.otp.Totp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,12 +24,14 @@ public class DefinitionUtils {
     protected void writeToFile(String myPackage,
                                String trade,
                                String commission,
-                               List<WebElement> binaryPoints,
-                               List<String> tradingDays) throws IOException {
+                               List<String> binaryPoints,
+                               List<String> tradingDays,
+                               String totalTradeEarning)
+            throws IOException {
         PrintWriter writer = new PrintWriter(new FileWriter(reportFileName, true));
         if (!printedColumns) {
             writer.println(
-                    "USERNAME,MY PACKAGE,COMMISSION,TRADE,LEFT TEAM,RIGHT TEAM,CYCLE 01,CYCLE 02,CYCLE 03,REMAINING DAYS"
+                    "USERNAME,MY PACKAGE,COMMISSION,TRADE,LEFT TEAM,RIGHT TEAM,CYCLE 01,CYCLE 02,CYCLE 03,REMAINING DAYS,TOTAL TRADE EARNING"
             );
             printedColumns = true;
         }
@@ -39,12 +40,13 @@ public class DefinitionUtils {
                         + myPackage + ","
                         + commission + ","
                         + trade + ","
-                        + binaryPoints.get(0).getText().replace("\n", "") + ","
-                        + binaryPoints.get(3).getText().replace("\n", "") + ","
+                        + binaryPoints.get(0).replace("\n", "") + ","
+                        + binaryPoints.get(3).replace("\n", "") + ","
                         + tradingDays.get(0).replace("/", "--") + ","
                         + tradingDays.get(1).replace("/", "--") + ","
                         + tradingDays.get(2).replace("/", "--") + ","
-                        + tradingDays.get(3).replace("/", "--")
+                        + tradingDays.get(3).replace("/", "--") + ","
+                        + totalTradeEarning
         );
         writer.close();
     }

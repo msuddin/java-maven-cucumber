@@ -8,7 +8,7 @@ Feature: To capture different types of data
     And I enter password
     And I press sign in
     And I wait for google authenticator to be completed
-    Then I capture dash board details
+    Then I capture details
     And I log out
     And close the browser
 
