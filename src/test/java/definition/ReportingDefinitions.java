@@ -69,10 +69,4 @@ public class ReportingDefinitions extends DefinitionUtils {
         writeToFile(myPackage, trade, commission, binaryPointsTextValue, tradingDaysText, totalTradeEarning);
     }
 
-    private void clickOnSideMenu(By by) {
-        waitForElementTobeVisible(by);
-        driver.findElement(by).click();
-    }
-
-
 }

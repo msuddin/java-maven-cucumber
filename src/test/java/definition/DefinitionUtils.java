@@ -62,6 +62,11 @@ public class DefinitionUtils {
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
+    protected void clickOnSideMenu(By by) {
+        waitForElementTobeVisible(by);
+        driver.findElement(by).click();
+    }
+
     protected void sleep(int seconds) {
         try {
             Thread.sleep(1000 * seconds);

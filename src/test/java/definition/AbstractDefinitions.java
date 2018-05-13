@@ -69,6 +69,7 @@ public class AbstractDefinitions extends DefinitionUtils {
         if (!prop.getProperty("username").contains("soyzun")) {
             waitForElementTobeVisible(By.cssSelector("#md-founder-tcoin button"));
             driver.findElement(By.cssSelector("#md-founder-tcoin button")).click();
+            sleep(4);
         }
 
         waitForElementTobeVisible(By.id("item-package"));
