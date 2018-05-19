@@ -26,12 +26,12 @@ public class DefinitionUtils {
                                String commission,
                                List<String> binaryPoints,
                                List<String> tradingDays,
-                               String totalTradeEarning)
+                               double totalTradeEarning)
             throws IOException {
         PrintWriter writer = new PrintWriter(new FileWriter(reportFileName, true));
         if (!printedColumns) {
             writer.println(
-                    "USERNAME,MY PACKAGE,COMMISSION,TRADE,LEFT TEAM,RIGHT TEAM,CYCLE 01,CYCLE 02,CYCLE 03,REMAINING DAYS,TOTAL TRADE EARNING"
+                    "USERNAME,PACKAGE,COMMISSION,TRADE,LEFT TEAM,RIGHT TEAM,CYC 01,CYC 02,CYC 03,TOTAL DAYS,TRADE EARNING,25%"
             );
             printedColumns = true;
         }
@@ -46,7 +46,8 @@ public class DefinitionUtils {
                         + tradingDays.get(1).replace("/", "--") + ","
                         + tradingDays.get(2).replace("/", "--") + ","
                         + tradingDays.get(3).replace("/", "--") + ","
-                        + totalTradeEarning
+                        + totalTradeEarning + ","
+                        + (totalTradeEarning / 100) * 25
         );
         writer.close();
     }
