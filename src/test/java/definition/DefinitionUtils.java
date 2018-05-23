@@ -3,6 +3,8 @@ package definition;
 import org.jboss.aerogear.security.otp.Totp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -72,6 +74,12 @@ public class DefinitionUtils {
         try {
             Thread.sleep(1000 * seconds);
         } catch (Exception e) {}
+    }
+
+    protected void scrollToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 
     private static String getDate() {

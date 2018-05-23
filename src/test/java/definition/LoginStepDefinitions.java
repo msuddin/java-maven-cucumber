@@ -56,10 +56,7 @@ public class LoginStepDefinitions extends DefinitionUtils {
             driver.findElement(By.id("webmailLogin")).click();
         } else if (prop.getProperty("emailAdd").contains("@yahoo.com")) {
             driver.findElement(By.id("login-signin")).click();
-            WebElement element = driver.findElement(By.name("agree"));
-            Actions actions = new Actions(driver);
-            actions.moveToElement(element);
-            actions.perform();
+            scrollToElement(driver.findElement(By.name("agree")));
             driver.findElement(By.name("agree")).click();
             waitForElementTobeVisible(By.id("uh-mail-link"));
             driver.findElement(By.id("uh-mail-link")).click();
