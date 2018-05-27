@@ -6,8 +6,7 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,23 +16,15 @@ import static org.hamcrest.Matchers.is;
 
 public class AbstractDefinitions extends DefinitionUtils {
 
-    private ChromeOptions options = new ChromeOptions();
-
-    @Given("^I run in headless mode$")
-    public void headlessMode() {
-        options.addArguments("--headless");
-    }
-
     @Given("^I navigate to site with user ([^\"]*)$")
     public void navigateTo(String userFile) throws IOException {
         InputStream input = getClass().getClassLoader()
                 .getResourceAsStream(userFile + ".properties");
         prop.load(input);
 
-        driver = new ChromeDriver(options);
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+        driver = new FirefoxDriver();
 
-        driver.manage().window().maximize();
         driver.navigate().to("https://office.tradecoinclub.com/login");
     }
 
@@ -61,6 +52,7 @@ public class AbstractDefinitions extends DefinitionUtils {
         waitForElementTobeVisible(By.id("validateCode"));
         driver.findElement(By.id("validateCode")).sendKeys(generateGoogleAuthenticatorCode());
 
+        sleep(1);
         waitForElementTobeVisible(By.id("BTNvalidateCode"));
         driver.findElement(By.id("BTNvalidateCode")).click();
 
@@ -77,7 +69,7 @@ public class AbstractDefinitions extends DefinitionUtils {
 
     @Then("^I log out$")
     public void logOut() {
-        sleep(5);
+        sleep(2);
         List<WebElement> h2 = driver.findElements(By.tagName("h2"));
         for (int i = 0; i < h2.size(); i++) {
             if (h2.get(i).getText().contains(prop.getProperty("firstName")) &&
@@ -87,8 +79,14 @@ public class AbstractDefinitions extends DefinitionUtils {
             }
         }
 
-        waitForElementTobeVisible(By.linkText("Logout"));
-        driver.findElement(By.linkText("Logout")).click();
+        waitForElementTobeVisible(By.className("dropdown-menu"));
+        List<WebElement> a = driver.findElements(By.tagName("a"));
+        for (int i = 0; i < a.size(); i++) {
+            if (a.get(i).getText().equals("Logout")) {
+                a.get(i).click();
+                break;
+            }
+        }
 
         Assert.assertThat(driver.getCurrentUrl(), is("https://office.tradecoinclub.com/login"));
     }

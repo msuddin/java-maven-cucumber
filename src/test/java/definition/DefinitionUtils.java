@@ -61,7 +61,7 @@ public class DefinitionUtils {
     }
 
     protected void waitForElementTobeVisible(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 

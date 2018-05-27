@@ -4,6 +4,7 @@ Feature: Login to account
     Given I navigate to site with user <username>
     When I enter username
     And I enter password
+    And I allow user to complete captha
     And I press sign in
     And I wait for google authenticator to be completed
     Then I open a new tab for email

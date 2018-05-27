@@ -1,6 +1,7 @@
 package definition;
 
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -18,10 +19,8 @@ public class LoginStepDefinitions extends DefinitionUtils {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         if (prop.getProperty("username").equals("mohammedsuddin")) {
             js.executeScript("window.open('https://secure.ipage.com/secure/login.bml#webmail','_blank');");
-        } else if (prop.getProperty("emailAdd").contains("@yahoo.com")) {
-            js.executeScript("window.open('https://login.yahoo.com','_blank');");
-        }else {
-            js.executeScript("window.open('https://gmail.com','_blank');");
+        } else {
+            js.executeScript("window.open('https://accounts.google.com/signin/v2/identifier','_blank');");
         }
 
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
@@ -79,5 +78,12 @@ public class LoginStepDefinitions extends DefinitionUtils {
             waitForElementTobeVisible(By.id("gba"));
             Assert.assertThat(driver.getTitle(), containsString(prop.getProperty("emailAdd")));
         }
+    }
+
+    @When("^I allow user to complete captha$")
+    public void completeCaptha() {
+        waitForElementTobeVisible(By.className("g-recaptcha"));
+        driver.findElement(By.className("g-recaptcha")).click();
+        sleep(5);
     }
 }
