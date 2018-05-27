@@ -70,13 +70,9 @@ public class LoginStepDefinitions extends DefinitionUtils {
             waitForElementTobeVisible(By.className("username"));
             Assert.assertThat(driver.findElement(By.className("username")).getText(),
                     containsString(prop.getProperty("emailAdd")));
-        } else if (prop.getProperty("emailAdd").contains("@yahoo.com")) {
-            waitForElementTobeVisible(By.id("ybar"));
-            Assert.assertThat(driver.findElement(By.id("ybarAccountMenu")).getAttribute("aria-label"),
-                    containsString(prop.getProperty("firstName")));
         } else {
-            waitForElementTobeVisible(By.id("gba"));
-            Assert.assertThat(driver.getTitle(), containsString(prop.getProperty("emailAdd")));
+            waitForElementTobeVisible(By.className("gb_db"));
+            Assert.assertThat(driver.getPageSource(), containsString(prop.getProperty("emailAdd")));
         }
     }
 
