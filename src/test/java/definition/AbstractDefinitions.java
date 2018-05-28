@@ -69,7 +69,7 @@ public class AbstractDefinitions extends DefinitionUtils {
 
     @Then("^I log out$")
     public void logOut() {
-        sleep(2);
+        sleep(5);
         List<WebElement> h2 = driver.findElements(By.tagName("h2"));
         for (int i = 0; i < h2.size(); i++) {
             if (h2.get(i).getText().contains(prop.getProperty("firstName")) &&

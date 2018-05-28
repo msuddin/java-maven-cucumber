@@ -26,7 +26,7 @@ public class TradingDefinitions extends DefinitionUtils {
     @Then("^I check that trading is set to \"([^\"]*)\"$")
     public void checkWhatTradingIsSetTo(String tradingState) {
         waitForElementTobeVisible(By.id("trade-risk"));
-        scrollToElement(driver.findElement(By.id("trade-risk")));
+        scrollToElement(driver.findElement(By.cssSelector(".comission-bg")));
         Select dropdown = new Select(driver.findElement(By.id("trade-risk")));
         Assert.assertThat(dropdown.getFirstSelectedOption().getText(), is(tradingState));
     }

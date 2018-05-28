@@ -2,9 +2,9 @@ package definition;
 
 import org.jboss.aerogear.security.otp.Totp;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -77,9 +77,8 @@ public class DefinitionUtils {
     }
 
     protected void scrollToElement(WebElement element) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element);
-        actions.perform();
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     private static String getDate() {
