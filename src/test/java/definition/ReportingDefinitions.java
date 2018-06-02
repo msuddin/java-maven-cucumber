@@ -63,9 +63,16 @@ public class ReportingDefinitions extends DefinitionUtils {
 
         waitForElementTobeVisible(By.className("table-responsive"));
         List<WebElement> tables = driver.findElements(By.className("table-responsive"));
-        List<WebElement> earningSections = tables.get(1).findElements(By.tagName("td"));
-        double totalTradeEarning = Double.parseDouble(earningSections.get(earningSections.size() - 2).getText());
+        List<WebElement> earningSections = tables.get(1).findElements(By.tagName("tr"));
 
+        double totalTradeEarning = 0.0;
+        for (int i = 0; i < earningSections.size(); i++) {
+            if (earningSections.get(i).getText().contains("Daily Receipt Trade")) {
+                List<WebElement> earningRows = earningSections.get(i).findElements(By.tagName("td"));
+                totalTradeEarning = Double.parseDouble(earningRows.get(earningRows.size() - 2).getText());
+                break;
+            }
+        }
         writeToFile(myPackage, trade, commission, binaryPointsTextValue, tradingDaysText, totalTradeEarning);
     }
 
