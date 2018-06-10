@@ -52,7 +52,7 @@ public class AbstractDefinitions extends DefinitionUtils {
         waitForElementTobeVisible(By.id("validateCode"));
         driver.findElement(By.id("validateCode")).sendKeys(generateGoogleAuthenticatorCode());
 
-        sleep(1);
+        sleep(2);
         waitForElementTobeVisible(By.id("BTNvalidateCode"));
         driver.findElement(By.id("BTNvalidateCode")).click();
 
