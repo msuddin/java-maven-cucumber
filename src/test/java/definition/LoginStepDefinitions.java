@@ -29,6 +29,7 @@ public class LoginStepDefinitions extends DefinitionUtils {
 
     @Then("^I enter email username$")
     public void enterEmailUsername() {
+        sleep(1);
         if (prop.getProperty("username").equals("mohammedsuddin")) {
             waitForElementTobeVisible(By.id("address"));
             driver.findElement(By.id("address")).sendKeys(prop.getProperty("emailAdd"));
@@ -45,6 +46,7 @@ public class LoginStepDefinitions extends DefinitionUtils {
 
     @Then("^I enter email password$")
     public void enterEmailPassword() {
+        sleep(1);
         waitForElementTobeVisible(By.name("password"));
         driver.findElement(By.name("password")).sendKeys(prop.getProperty("emailPass"));
         if (prop.getProperty("username").equals("mohammedsuddin")) {
@@ -57,6 +59,7 @@ public class LoginStepDefinitions extends DefinitionUtils {
             driver.findElement(By.id("login-signin")).click();
             scrollToElement(driver.findElement(By.name("agree")));
             driver.findElement(By.name("agree")).click();
+            sleep(1);
             waitForElementTobeVisible(By.id("uh-mail-link"));
             driver.findElement(By.id("uh-mail-link")).click();
         } else {

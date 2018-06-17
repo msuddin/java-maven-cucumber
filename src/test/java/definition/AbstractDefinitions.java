@@ -49,6 +49,7 @@ public class AbstractDefinitions extends DefinitionUtils {
 
     @When("^I wait for google authenticator to be completed$")
     public void googleAuthenticator() {
+        sleep(1);
         waitForElementTobeVisible(By.id("validateCode"));
         driver.findElement(By.id("validateCode")).sendKeys(generateGoogleAuthenticatorCode());
 
@@ -58,10 +59,14 @@ public class AbstractDefinitions extends DefinitionUtils {
 
         waitForElementTobeVisible(By.cssSelector("#jquery-notific8-notification-1"));
 
+        waitForElementTobeVisible(By.cssSelector("#md-update-wallet button"));
+        driver.findElement(By.cssSelector("#md-update-wallet button")).click();
+        sleep(2);
+
         if (!prop.getProperty("username").contains("soyzun")) {
             waitForElementTobeVisible(By.cssSelector("#md-founder-tcoin button"));
             driver.findElement(By.cssSelector("#md-founder-tcoin button")).click();
-            sleep(4);
+            sleep(2);
         }
 
         waitForElementTobeVisible(By.id("item-package"));
