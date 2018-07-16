@@ -57,12 +57,6 @@ public class AbstractDefinitions extends DefinitionUtils {
         waitForElementTobeVisible(By.id("BTNvalidateCode"));
         driver.findElement(By.id("BTNvalidateCode")).click();
 
-        waitForElementTobeVisible(By.cssSelector("#jquery-notific8-notification-1"));
-
-        waitForElementTobeVisible(By.cssSelector("#md-update-wallet button"));
-        driver.findElement(By.cssSelector("#md-update-wallet button")).click();
-        sleep(2);
-
         if (!prop.getProperty("username").contains("soyzun")) {
             waitForElementTobeVisible(By.cssSelector("#md-founder-tcoin button"));
             driver.findElement(By.cssSelector("#md-founder-tcoin button")).click();
