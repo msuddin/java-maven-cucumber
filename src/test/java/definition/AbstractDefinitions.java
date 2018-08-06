@@ -53,15 +53,19 @@ public class AbstractDefinitions extends DefinitionUtils {
         waitForElementTobeVisible(By.id("validateCode"));
         driver.findElement(By.id("validateCode")).sendKeys(generateGoogleAuthenticatorCode());
 
-        sleep(2);
+        sleep(1);
         waitForElementTobeVisible(By.id("BTNvalidateCode"));
         driver.findElement(By.id("BTNvalidateCode")).click();
 
         if (!prop.getProperty("username").contains("soyzun")) {
+            sleep(1);
             waitForElementTobeVisible(By.cssSelector("#md-founder-tcoin button"));
             driver.findElement(By.cssSelector("#md-founder-tcoin button")).click();
-            sleep(2);
         }
+
+        sleep(1);
+        waitForElementTobeVisible(By.cssSelector("#md-video-tcc button"));
+        driver.findElement(By.cssSelector("#md-video-tcc button")).click();
 
         waitForElementTobeVisible(By.id("item-package"));
     }
