@@ -57,13 +57,11 @@ public class AbstractDefinitions extends DefinitionUtils {
         waitForElementTobeVisible(By.id("BTNvalidateCode"));
         driver.findElement(By.id("BTNvalidateCode")).click();
 
-        if (!prop.getProperty("username").contains("soyzun")) {
-            sleep(2);
-            waitForElementTobeVisible(By.cssSelector("#md-pdf-tcc button"));
-            driver.findElement(By.cssSelector("#md-pdf-tcc button")).click();
-        }
+        sleep(2);
+        waitForElementTobeVisible(By.cssSelector("#md-thanks-to-all button"));
+        driver.findElement(By.cssSelector("#md-thanks-to-all button")).click();
 
-        sleep(1);
+        sleep(2);
         waitForElementTobeVisible(By.cssSelector("#md-video-tcc button"));
         driver.findElement(By.cssSelector("#md-video-tcc button")).click();
 
