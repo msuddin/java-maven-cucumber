@@ -20,5 +20,5 @@ Feature: Withdraw Request
     And I confirm I have logged in
 
     Examples:
-      |username|
-      |template|
+    |username|
+    |template|

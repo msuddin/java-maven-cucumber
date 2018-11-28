@@ -7,6 +7,7 @@ public class WithdrawStepDefinition extends DefinitionUtils{
 
     @Then("^I navigate to withdraw$")
     public void openWithdraw() {
+        sleep(2);
         clickOnSideMenu(By.className("active-nav"));
         clickOnSideMenu(By.linkText("Financial"));
         clickOnSideMenu(By.linkText("Request Withdraw"));
